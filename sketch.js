@@ -29,9 +29,9 @@ function addBubble(){
 function shakeBubble(){
   let ranW = Math.floor(random(0,2))*windowWidth
   let ranH= Math.floor(random(0,2))*windowHeight
-  const newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), ranW, random(0,windowHeight))
+  var newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), ranW, random(0,windowHeight))
   bubbles.push(newBubble)
-  const newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), random(0,windowWidth), ranH)
+  newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), random(0,windowWidth), ranH)
   bubbles.push(newBubble)
 }
 
