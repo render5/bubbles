@@ -80,6 +80,6 @@ function mouseClicked() {
 
 function deviceShaken() {
   for(i=0; i<24; i++){
-    addBubble()
+    shakeBubble()
   }
 }
