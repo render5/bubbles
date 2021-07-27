@@ -5,7 +5,6 @@ function preload(){
 }
 
 function setup() {
-  frameRate(60)
   createCanvas(windowWidth,windowHeight)
 }
 
@@ -17,18 +16,31 @@ function draw() {
       bubbles[i].show()
     }
   }
+  if(mouseIsPressed){
+    addBubble()
+  }
 }
 
 function addBubble(){
-  const newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3))
+  const newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), mouseX, mouseY)
+  bubbles.push(newBubble)
+}
+
+function shakeBubble(){
+  let ranW = Math.floor(random(0,2))*windowWidth
+  let ranH= Math.floor(random(0,2))*windowHeight
+  const newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), ranW, random(0,windowHeight))
+  bubbles.push(newBubble)
+  const newBubble = new Bubble(random(-1,1),random(-1,1),random(0.7,1.3), random(0,windowWidth), ranH)
   bubbles.push(newBubble)
 }
 
 class Bubble{
 
-  constructor(vx,vy,a){
-    this.x = mouseX
-    this.y = mouseY
+  constructor(vx, vy, a, posx, posy){
+    this.size = random(0,0.15)
+    this.x = posx
+    this.y = posy
     if((Math.abs(vx)+Math.abs(vy))>1.5){
       vx = vx*0.7
       vy = vy*0.7
@@ -40,26 +52,33 @@ class Bubble{
   }
 
   move(){
-    if(this.life<=0){
-      bubbles.splice(this.newBubble, 1)
-    }
+
     this.x += this.vx*this.a
     this.y += this.vy*this.a
     this.life--
     if(this.a>0.3){
       this.a = this.a - 0.007
     }
+    if(this.life<=0){
+      bubbles.splice(this.newBubble, 1)
+    }
   }
 
   show(){
-    stroke(255)
+    stroke(255,this.life-20)
     strokeWeight(2)
     noFill()
-    ellipse(this.x, this.y, Math.log(this.life)*4-5)
+    ellipse(this.x, this.y, (Math.log(this.life+1)*4-5)+this.size*(this.life))
   }
 }
 
 function mouseClicked() {
+  for(i=0; i<24; i++){
+    addBubble()
+  }
+}
+
+function deviceShaken() {
   for(i=0; i<24; i++){
     addBubble()
   }
