@@ -6,6 +6,9 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth,windowHeight)
+  if(windowWidth < windowHeight){
+    pixelDensity(0.4)
+  }
 }
 
 function draw() {
